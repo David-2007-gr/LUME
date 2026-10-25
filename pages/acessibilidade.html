@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Escolha o tamanho da letra — LUME</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="icon" href="../assets/img/favicon.ico?v=4" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/img/favicon.ico?v=4" type="image/x-icon">
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/accessibility.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand small-brand" href="../index.html">LUME</a>
+    <a class="text-link" href="../index.html">Voltar ao início</a>
+  </header>
+  <main class="container narrow">
+    <p class="eyebrow">Primeiro passo</p>
+    <h1>Qual tamanho de letra fica melhor para você?</h1>
+    <p class="lead">Escolha uma opção. Você pode mudar isso depois.</p>
+    <section class="font-preview" aria-live="polite">
+      <p id="previewText">Eu consigo ler esta frase com tranquilidade.</p>
+    </section>
+    <div class="choice-grid" aria-label="Tamanho da letra">
+      <button class="choice-button" type="button" data-font="small" aria-pressed="false">Letra menor</button>
+      <button class="choice-button" type="button" data-font="medium" aria-pressed="false">Letra média</button>
+      <button class="choice-button" type="button" data-font="large" aria-pressed="false">Letra grande</button>
+      <button class="choice-button" type="button" data-font="xlarge" aria-pressed="false">Letra bem grande</button>
+    </div>
+    <a class="button primary full" href="login.html">Continuar</a>
+  </main>
+</body>
+</html>

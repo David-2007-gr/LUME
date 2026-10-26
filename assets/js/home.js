@@ -15,20 +15,30 @@
   let user = Lume.getSession();
 
   if (!user && params.has('visitante')) {
-    user = { username: params.get('visitante'), guest: true };
+    user = {
+      username: params.get('visitante'),
+      displayName: params.get('visitante'),
+      guest: true
+    };
   }
 
   if (!user && params.has('usuario')) {
-    user = { username: params.get('usuario'), guest: false };
+    user = {
+      username: params.get('usuario'),
+      displayName: params.get('usuario'),
+      guest: false
+    };
   }
 
-  if (user && user.username && !Lume.getSession()) {
+  if (user && user.displayName && !Lume.getSession()) {
     Lume.setSession(user);
   }
 
   const greeting = document.getElementById('greeting');
-  greeting.textContent = user && user.username
-    ? 'Olá, ' + user.username + '! Vamos aprender juntos?'
+  const displayName = user && (user.displayName || user.username);
+
+  greeting.textContent = displayName
+    ? 'Olá, ' + displayName + '! Vamos aprender juntos?'
     : 'Olá! Vamos aprender juntos?';
 
   const notice = document.getElementById('temporaryNotice');

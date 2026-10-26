@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light dark">
   <title>Entrar — LUME</title>
   <link rel="stylesheet" href="../assets/css/styles.css">
-<link rel="icon" href="../assets/img/favicon.ico?v=4" type="image/x-icon">
+  <link rel="icon" href="../assets/img/favicon.ico?v=4" type="image/x-icon">
   <link rel="shortcut icon" href="../assets/img/favicon.ico?v=4" type="image/x-icon">
   <script src="../assets/js/common.js"></script>
   <script src="../assets/js/auth.js" defer></script>
@@ -16,25 +16,51 @@
     <a class="brand small-brand" href="../index.html">LUME</a>
     <a class="text-link" href="sobre.html">Conheça o projeto</a>
   </header>
+
   <main class="container narrow">
     <p class="eyebrow">Que bom ter você aqui</p>
     <h1>Vamos entrar?</h1>
-    <p class="lead">Use seu nome e sua senha. Se preferir, você pode conhecer o LUME sem criar uma conta.</p>
+    <p class="lead">Use uma senha e diga como gostaria de ser chamado. Se preferir, pode entrar como visitante.</p>
+
     <form id="loginForm" class="panel">
-      <label for="username">Nome de usuário</label>
-      <input id="username" name="username" autocomplete="username" required minlength="2" maxlength="30">
+      <label for="displayName">Como você gostaria de ser chamado?</label>
+      <input
+        id="displayName"
+        name="displayName"
+        autocomplete="name"
+        required
+        minlength="2"
+        maxlength="30"
+        placeholder="Ex.: Maria ou João"
+      >
+
       <label for="password">Senha</label>
-      <input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" aria-describedby="passwordHelp">
+      <input
+        id="password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        required
+        minlength="8"
+        aria-describedby="passwordHelp"
+      >
       <p id="passwordHelp" class="field-help">Use pelo menos 8 caracteres.</p>
+
       <p id="loginMessage" class="form-message" role="status"></p>
-      <button class="button primary full" type="submit">Entrar ou criar conta</button>
+
+      <button class="button primary full" type="submit">Entrar</button>
     </form>
+
     <div class="separator"><span>ou</span></div>
+
     <button class="guest-button full" id="guestButton" type="button">
       <span class="star" aria-hidden="true">★</span>
-      <span>Entrar como hóspede</span>
+      <span>Entrar como visitante</span>
     </button>
-    <p class="small-note">Esta é uma demonstração local. Não use uma senha que você já utiliza em outros serviços. O acesso de hóspede cria um nome aleatório para esta visita.</p>
+
+    <p class="small-note">
+      Esta é uma demonstração local. Não use uma senha que você já utiliza em outros serviços.
+    </p>
   </main>
 </body>
 </html>

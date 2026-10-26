@@ -1,15 +1,24 @@
 (function () {
   const form = document.getElementById('loginForm');
   const message = document.getElementById('loginMessage');
-  const usernameInput = document.getElementById('username');
+  const displayNameInput = document.getElementById('displayName');
   const passwordInput = document.getElementById('password');
+
+  function normalizeName(value) {
+    return value.trim().replace(/\s+/g, ' ');
+  }
 
   function continueToHome(session) {
     const saved = Lume.setSession(session);
     const params = new URLSearchParams();
 
     if (!saved) {
-      params.set(session.guest ? 'visitante' : 'usuario', session.username);
+      if (session.guest) {
+        params.set('visitante', session.displayName);
+      } else {
+        params.set('usuario', session.displayName);
+      }
+
       if (session.showTemporaryNotice) params.set('aviso', '1');
     }
 
@@ -20,12 +29,12 @@
     event.preventDefault();
     message.textContent = '';
 
-    const username = usernameInput.value.trim();
+    const displayName = normalizeName(displayNameInput.value);
     const password = passwordInput.value;
 
-    if (username.length < 2) {
-      message.textContent = 'O nome de usuário precisa ter pelo menos 2 caracteres.';
-      usernameInput.focus();
+    if (displayName.length < 2) {
+      message.textContent = 'Digite um nome para ser exibido na plataforma.';
+      displayNameInput.focus();
       return;
     }
 
@@ -35,8 +44,9 @@
       return;
     }
 
+    const normalizedKey = displayName.toLowerCase();
     const users = Lume.getUsers();
-    const existingUser = users[username];
+    const existingUser = users[normalizedKey];
 
     if (existingUser && existingUser.password !== password) {
       message.textContent = 'Essa senha não corresponde a esse nome. Confira e tente novamente.';
@@ -45,28 +55,35 @@
     }
 
     if (!existingUser) {
-      users[username] = {
+      users[normalizedKey] = {
         password,
+        displayName,
         createdAt: new Date().toISOString(),
         noticeShown: false
       };
     }
 
-    const showTemporaryNotice = users[username].noticeShown !== true;
-    users[username].noticeShown = true;
+    const showTemporaryNotice = users[normalizedKey].noticeShown !== true;
+    users[normalizedKey].noticeShown = true;
     Lume.saveUsers(users);
 
     continueToHome({
-      username,
+      username: displayName,
+      displayName,
       guest: false,
       showTemporaryNotice
     });
   });
 
   document.getElementById('guestButton').addEventListener('click', () => {
-    const username = Lume.makeGuestName();
+    const promptName = window.prompt('Como você gostaria de ser chamado hoje?', 'Visitante');
+
+    const displayName = normalizeName(promptName || '');
+    const finalName = displayName.length >= 2 ? displayName : 'Visitante';
+
     continueToHome({
-      username,
+      username: finalName,
+      displayName: finalName,
       guest: true,
       createdAt: new Date().toISOString()
     });
